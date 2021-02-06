@@ -10,27 +10,32 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-
 from pathlib import Path
 import os
 
-# Строки для HEROKU
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# Строки для HEROKU
-import django_heroku
-import dj_database_url  
 
+
+# Библиотеки для HEROKU
+import django_heroku
+# import dj_database_url  
+
+# BASE_DIR для сервера на HEROKU
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
+
+# BASE_DIR для локального сервера
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = ')3v0s^+)%n)hqpaz#$vnatk7dled0_i(p!rzbc(hvzb+nx48yo'
-# Строка для HEROKU
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY для разворачивания на локальном сервере
+SECRET_KEY = ')3v0s^+)%n)hqpaz#$vnatk7dled0_i(p!rzbc(hvzb+nx48yo'
+
+# SECRET_KEY для разворачивания на HEROKU
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -89,15 +94,16 @@ WSGI_APPLICATION = 'd5_hw.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+# Переменная БД для локального сервера 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
-# Строка для HEROKU
-DATABASES  = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+# Переменная БД для HEROKU
+# DATABASES  = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 
 # Password validation
@@ -137,16 +143,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# Строки для Heroku
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, "static"),
-# )
 
 django_heroku.settings(locals())
