@@ -35,7 +35,7 @@
                             <th scope="col">№</th>
                             <th scope="col">Название</th>
                             <th scope="col">Автор</th>
-                            <th scope="col" colspan="3">Кто одолжил</th>
+                            <th scope="col" colspan="3">Кому одолжил</th>
                         </tr>
                     </thead>
                     {% for book in books %}
@@ -45,7 +45,7 @@
                         <td>{{ book.author.full_name }}</td>
                         <td>{{ book.friends.full_name }}</td>
                         <td>
-                            <a href="{% url 'p_library:book_friend_edit' book.pk %}" title="Добавить/изменить должника"><img
+                            <a href="{% url 'p_library:book_friend_edit' book.pk %}" title="Редактировать должника"><img
                                     src="{% static 'image/pencil.svg' %}" alt="" width="25px" height="auto"></a>
                         </td>
                         <td>
