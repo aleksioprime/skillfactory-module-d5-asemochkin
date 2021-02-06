@@ -10,15 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-import django_heroku
-import dj_database_url  
+
 from pathlib import Path
 import os
 
+# Строки для HEROKU
+import django_heroku
+import dj_database_url  
 django_heroku.settings(locals())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Строка для HEROKU
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,12 +31,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = ')3v0s^+)%n)hqpaz#$vnatk7dled0_i(p!rzbc(hvzb+nx48yo'
+# Строка для HEROKU
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Строка для HEROKU
 ALLOWED_HOSTS = [
     'skillfactory-library-d5.herokuapp.com',
 ]
@@ -90,6 +97,7 @@ WSGI_APPLICATION = 'd5_hw.wsgi.application'
 #     }
 # }
 
+# Строка для HEROKU
 DATABASES  = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 
@@ -131,7 +139,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# Строки для Heroku
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, "static"),
