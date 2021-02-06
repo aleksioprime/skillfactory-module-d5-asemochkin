@@ -13,3 +13,12 @@ https://skillfactory-library-d5.herokuapp.com/
 ```
 python3 manage.py runserver
 ```
+В разделе администрирования имеются все необходимые функции для работы с друзьями и книгами. Раздел администрирования по url:
+```
+<hostname:port>/admin/
+```
+Данны для входа на локальном сервере:
+
+login: admin
+
+password: 12345
